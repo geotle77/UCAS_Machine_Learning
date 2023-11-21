@@ -1,1 +1,9 @@
 # UCAS 机器学习大作业
+训练集	    train_ids.csv	        训练样本对话的ID
+测试集	    test_ids.csv	        测试样本对话的ID
+数据文件	text_features.pkl	    所有对话的文本特征
+数据文件	audio_features.pkl	    所有对话的音频特征
+数据文件	visual_features.pkl	    所有对话的图像特征
+数据文件	IDs.pkl	                每个对话的ID
+数据文件	train_label.pkl	        训练样本对话中对话句子的真实标签
+数据文件	Speakers.pkl	        所有对话中男女人物对话的顺序，其中M代表男性，F代表女性
