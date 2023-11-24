@@ -24,7 +24,19 @@ class Classifier(nn.Module):
         return x
 
 
-def positional_encoding(X, num_features, dropout_p=0.1, max_len=512) -> Tensor:
+class Input_Solver(nn.Module):
+    def __init__(self, src_dim, embedding_dim):
+        super(Input_Solver, self).__init__()
+        self.fc = nn.Linear(src_dim, embedding_dim)
+
+    def forward(self, x):
+        x = self.fc(x)
+        # 在损失函数中使用CrossEntropyLoss时，不需要手动添加softmax
+        # 如果需要概率输出，可以在预测时使用F.softmax
+        return x
+
+
+def positional_encoding(X, num_features, dropout_p=0.1, max_len=1024) -> Tensor:
     r'''
         给输入加入位置编码
     参数：
@@ -418,7 +430,7 @@ class TransformerDecoder(nn.Module):
 
 
 class Transformer(nn.Module):
-    def __init__(self, d_model: int = 512, nhead: int = 8, num_encoder_layers: int = 6,
+    def __init__(self, d_model: int = 1024, nhead: int = 8, num_encoder_layers: int = 6,
                  num_decoder_layers: int = 6, dim_feedforward: int = 2048, dropout: float = 0.1,
                  activation=F.relu, custom_encoder: Optional[Any] = None, custom_decoder: Optional[Any] = None,
                  layer_norm_eps: float = 1e-5, batch_first: bool = False) -> None:
@@ -439,7 +451,9 @@ class Transformer(nn.Module):
             decoder_norm = nn.LayerNorm(d_model, eps=layer_norm_eps)
             self.decoder = TransformerDecoder(decoder_layer, num_decoder_layers, decoder_norm)
 
-        self.classifier_model = Classifier(1024, 6)
+        self.classifier_model = Classifier(d_model, 6)
+        self.input_solver = Input_Solver(1, d_model)
+        self.embedding_layer = nn.Embedding(d_model+2, d_model)
 
         self._reset_parameters()
 
@@ -455,9 +469,12 @@ class Transformer(nn.Module):
                 tgt_key_padding_mask: Optional[Tensor] = None,
                 memory_key_padding_mask: Optional[Tensor] = None) -> Tensor:
 
-        memory = self.encoder(src, mask=src_mask, src_key_padding_mask=src_key_padding_mask)
+        input = self.input_solver(src.view(src.shape[0], src.shape[1], 1))
+
+        memory = self.encoder(input, mask=src_mask, src_key_padding_mask=src_key_padding_mask)
         if(self._eval == 0):
-            transformer_output = self.decoder(tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
+            embed_tgt = self.embedding_layer(tgt)
+            transformer_output = self.decoder(embed_tgt, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
                               tgt_key_padding_mask=tgt_key_padding_mask,
                               memory_key_padding_mask=memory_key_padding_mask)
 

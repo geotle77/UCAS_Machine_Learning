@@ -4,13 +4,6 @@ import pickle
 import csv
 import numpy as np
 
-# 假设你的Transformer输出的维度是transformer_dim
-transformer_dim = 1024  # 替换成你的实际维度
-num_classes = 6  # 替换成你的分类类别数
-
-zeros_array = np.zeros(1024)
-embed = nn.Embedding(1026, 1024)
-
 DATA_FILE_PATH = "./DataSet/"
 input_data = []
 output_data = []
@@ -42,15 +35,18 @@ with open(DATA_FILE_PATH + 'train_label.pkl', 'rb') as f:
 labels = {k : v for k, v in train_label_O.items() if k.startswith('dialog_') and k[7:].isdigit()}
 
 for id in train_ids:
-    input_data.append(dialog_ID_features[id])
-    label = labels[id]
-    output_data.append(label)
+    for i in dialog_ID_features[id] :
+        input_data.append(i)
+    for j in labels[id]:
+        output_data.append(j)
 
 for id in test_ids:
-    test_input.append(dialog_ID_features[id])
-    label = labels[id]
-    test_labels.append(label)
+    for i in dialog_ID_features[id]:
+        test_input.append(i)
+    for j in labels[id]:
+        test_labels.append(j)
 
+'''
 # 找到最长的子序列的长度
 max_length = 110
 print(max_length,len(input_data), len(test_input))
@@ -67,17 +63,18 @@ for i in range(len(test_input)):
         test_labels[i].append(0)
 
 print('1')
+'''
 
 # 定义超参数
-d_model = 512
+d_model = 8
 nhead = 8
 num_encoder_layers = 6
 num_decoder_layers = 6
 dim_feedforward = 2048
 dropout = 0.01
-learning_rate = 0.000003
-batch_size = 10
-epochs = 30
+learning_rate = 0.00001
+batch_size = 64
+epochs = 10
 shuffle = True  # 是否打乱数据
 num_workers = 4  # 设置用于加载数据的线程数
 
@@ -92,12 +89,13 @@ dataloader = DataLoader(dataset, batch_size=batch_size)
 
 # 创建Transformer模型
 model = Transformer(
-    d_model=1024,
+    d_model=16,
     nhead=nhead,
     num_encoder_layers=num_encoder_layers,
     num_decoder_layers=num_decoder_layers,
     dim_feedforward=dim_feedforward,
-    dropout=dropout
+    dropout=dropout,
+    batch_first=True
 )
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -107,6 +105,7 @@ model.to(device) # 将模型加载到GPU中（如果已经正确安装）
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
+
 # 训练循环
 #model.eval()
 for epoch in range(epochs):
@@ -114,18 +113,21 @@ for epoch in range(epochs):
     for batch in tqdm(dataloader, desc=f"Training Epoch {epoch}"):
         # 将输入数据传递给模型
         batch_src, batch_tgt = [x.to(device) for x in batch]
-        tgt = embed(batch_tgt)
-        output = model(batch_src, tgt = tgt)
+        tgt = batch_tgt.view(batch_tgt.shape[0],1)
+        output = model(batch_src, tgt=tgt)
 
-        standard = torch.zeros((output.shape[0], output.shape[1], 6))
+        output = output.view(output.shape[0], output.shape[2])
+
+        '''
+        standard = torch.zeros((output.shape[0], 1, 6))
         for i in range(len(batch_tgt)):
-            for j in range(len(batch_tgt[i])):
-                class_num = batch_tgt[i][j]
+                class_num = tgt[i]
                 if class_num > 0:
-                    standard[i][j][class_num - 1] = 1
+                    standard[i][0][class_num - 1] = 1
+        '''
 
         # 计算损失
-        loss = criterion(output, standard)
+        loss = criterion(output, batch_tgt)
 
         # 反向传播和优化
         optimizer.zero_grad()
@@ -145,60 +147,27 @@ error = 0
 for batch in tqdm(test_dataloader, desc=f"Testing"):
     inputs, targets = [x.to(device) for x in batch]
     with torch.no_grad():
-        output = model(inputs, tgt = embed(targets))
+        output = model(inputs, tgt = targets.view(targets.shape[0], 1))
         standard = torch.zeros((output.shape[0], output.shape[1], 6))
 
-        max_idx = [[0] * 110] * 20
+        max_idx = [0] * output.shape[0]
         print(output.shape)
         for i in range(len(output)):
             for j in range(len(output[i])):
                 max = -10000
                 for k in range(len(output[i][j])):
                     if (output[i][j][k] > max):
-                        max_idx[i][j] = k + 1
+                        max_idx[i] = k + 1
                         max = output[i][j][k]
 
         print(max_idx)
 
         for i in range(len(targets)):
-            for j in range(len(targets[i])):
-                if(targets[i][j] != 0 and max_idx[i][j] == targets[i][j]):
-                    acc += 1
-                elif(targets[i][j] != 0):
-                    error += 1
+            if (max_idx[i] == targets[i]):
+                acc += 1
+            else:
+                error += 1
 
-
-# 输出在测试集上的准确率
-print(acc)
-print(f"Acc: {acc / (acc + error):.2f}")
-
-acc = 0
-error = 0
-model._eval = 0
-for batch in tqdm(dataloader, desc=f"Testing"):
-    inputs, targets = [x.to(device) for x in batch]
-    with torch.no_grad():
-        output = model(inputs, tgt = embed(targets))
-        standard = torch.zeros((output.shape[0], output.shape[1], 6))
-
-        max_idx = [[0] * 110] * output.shape[0]
-        print(output.shape)
-        for i in range(len(output)):
-            for j in range(len(output[i])):
-                max = -10000
-                for k in range(len(output[i][j])):
-                    if (output[i][j][k] > max):
-                        max_idx[i][j] = k + 1
-                        max = output[i][j][k]
-
-        print(max_idx)
-
-        for i in range(len(targets)):
-            for j in range(len(targets[i])):
-                if(targets[i][j] != 0 and max_idx[i][j] == targets[i][j]):
-                    acc += 1
-                elif(targets[i][j] != 0):
-                    error += 1
 
 # 输出在测试集上的准确率
 print(acc)
