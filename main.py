@@ -66,15 +66,15 @@ print('1')
 '''
 
 # 定义超参数
-d_model = 8
-nhead = 8
-num_encoder_layers = 6
-num_decoder_layers = 6
-dim_feedforward = 2048
+d_model = 4
+nhead = 4
+num_encoder_layers = 3
+num_decoder_layers = 3
+dim_feedforward = 64
 dropout = 0.01
 learning_rate = 0.00001
-batch_size = 64
-epochs = 10
+batch_size = 10
+epochs = 15
 shuffle = True  # 是否打乱数据
 num_workers = 4  # 设置用于加载数据的线程数
 
@@ -98,8 +98,9 @@ model = Transformer(
     batch_first=True
 )
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if 'torch.cuda.is_available()' else 'cpu')
 model.to(device) # 将模型加载到GPU中（如果已经正确安装）
+print(torch.cuda.is_available())
 
 # 定义损失函数和优化器
 criterion = torch.nn.CrossEntropyLoss()
@@ -157,7 +158,7 @@ for batch in tqdm(test_dataloader, desc=f"Testing"):
                 max = -10000
                 for k in range(len(output[i][j])):
                     if (output[i][j][k] > max):
-                        max_idx[i] = k + 1
+                        max_idx[i] = k
                         max = output[i][j][k]
 
         print(max_idx)
@@ -173,4 +174,36 @@ for batch in tqdm(test_dataloader, desc=f"Testing"):
 print(acc)
 print(f"Acc: {acc / (acc + error):.2f}")
 
+#测试过程
+acc = 0
+error = 0
+#model.eval()
+for batch in tqdm(dataloader, desc=f"Testing"):
+    inputs, targets = [x.to(device) for x in batch]
+    with torch.no_grad():
+        output = model(inputs, tgt = targets.view(targets.shape[0], 1))
+        standard = torch.zeros((output.shape[0], output.shape[1], 6))
+
+        max_idx = [0] * output.shape[0]
+        for i in range(len(output)):
+            for j in range(len(output[i])):
+                max = -10000
+                for k in range(len(output[i][j])):
+                    if (output[i][j][k] > max):
+                        max_idx[i] = k
+                        max = output[i][j][k]
+
+        print(max_idx)
+        print(targets)
+
+        for i in range(len(targets)):
+            if (max_idx[i] == targets[i]):
+                acc += 1
+            else:
+                error += 1
+
+
+# 输出在测试集上的准确率
+print(acc)
+print(f"Acc: {acc / (acc + error):.2f}")
 

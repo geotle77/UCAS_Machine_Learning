@@ -5,7 +5,6 @@ from torch.nn import functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence
 from collections import defaultdict
-from vocab import Vocab
 
 # tqdm是一个Pyth模块，能以进度条的方式显式迭代的进度
 from tqdm.auto import tqdm
