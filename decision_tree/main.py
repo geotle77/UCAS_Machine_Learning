@@ -1,25 +1,48 @@
 import numpy as np
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import f1_score
+from scipy.stats import mode
 
 class DataLoader(object):
     def __init__(self, DataPath):
         self.train_ids = set(pd.read_csv(DataPath+'/train_ids.csv')['ids'])
         self.test_ids = set(pd.read_csv(DataPath+'/test_ids.csv')['ids'])
+        self.audio_features = pd.read_pickle(DataPath+'/audio_features.pkl')
         self.text_features = pd.read_pickle(DataPath+'/text_features.pkl')
+        self.visual_features = pd.read_pickle(DataPath+'/visual_features.pkl')
         self.all_label = pd.read_pickle(DataPath+'/train_label.pkl')
         self.dimension = 1024
         self.train_label = {}
         self.test_data = {}
         self.train_data = {}
-        self.X_train = []
+        self.text_train_data = {}
+        self.text_test_data = {}
+        self.visual_train_data = {}
+        self.visual_test_data = {}
+        self.audio_train_data = {}
+        self.audio_test_data = {}
+        self.text_X_train = []
+        self.visual_X_train = []
+        self.audio_X_train = []
+        self.text_Y_train = []
+        self.visual_Y_train = []
+        self.audio_Y_train = []
         self.Y_train = []
-        self.X_test = []
+        self.text_X_test = []
+        self.visual_X_test = []
+        self.audio_X_test = []
 
     def load_train_data(self):
+        for key,value in self.audio_features.items():
+            if key in self.train_ids:
+                self.audio_train_data[key] = value
         for key,value in self.text_features.items():
             if key in self.train_ids:
-                self.train_data[key] = value
+                self.text_train_data[key] = value
+        for key,value in self.visual_features.items():
+            if key in self.train_ids:
+                self.visual_train_data[key] = value
         # for key,list in self.train_data.items():
         #     for array in list:
         #         print(len(array))
@@ -33,29 +56,55 @@ class DataLoader(object):
         # return self.train_label
 
     def load_test_data(self):
+        for key,value in self.audio_features.items():
+            if key in self.test_ids:
+                self.audio_test_data[key] = value
         for key,value in self.text_features.items():
             if key in self.test_ids:
-                self.test_data[key] = value
+                self.text_test_data[key] = value
+        for key,value in self.visual_features.items():
+            if key in self.test_ids:
+                self.visual_test_data[key] = value
         # return self.test_data
     
     def DataProcess(self):
-        for key,list in self.train_data.items():
+        for key,list in self.text_train_data.items():
             for array in list:
-                self.X_train.append(array)
+                self.text_X_train.append(array)
+        for key,list in self.visual_train_data.items():
+            for array in list:
+                self.visual_X_train.append(array)
+        for key,list in self.audio_train_data.items():
+            for array in list:
+                self.audio_X_train.append(array)
         for key,list in self.train_label.items():
             for array in list:
                 self.Y_train.append(array)
-        for key,list in self.test_data.items():
+        for key,list in self.text_test_data.items():
             for array in list:
-                self.X_test.append(array)
-        self.X_train = np.array(self.X_train)
+                self.text_X_test.append(array)
+        for key,list in self.visual_test_data.items():
+            for array in list:
+                self.visual_X_test.append(array)
+        for key,list in self.audio_test_data.items():
+            for array in list:
+                self.audio_X_test.append(array)
+        self.text_X_train = np.array(self.text_X_train)
+        self.visual_X_train = np.array(self.visual_X_train)
+        self.audio_X_train = np.array(self.audio_X_train)
         self.Y_train = np.array(self.Y_train)
-        self.X_test = np.array(self.X_test)
+        self.text_X_test = np.array(self.text_X_test)
+        self.visual_X_test = np.array(self.visual_X_test)
+        self.audio_X_test = np.array(self.audio_X_test)
     
     def show_data_info(self):
-        print('X_train:',self.X_train.shape)
+        print('text_X_train:',self.text_X_train.shape)
+        print('visual_X_train:',self.visual_X_train.shape)
+        print('audio_X_train:',self.audio_X_train.shape)
         print('Y_train:',self.Y_train.shape)
-        print('X_test:',self.X_test.shape)
+        print('text_X_test:',self.text_X_test.shape)
+        print('visual_X_test:',self.visual_X_test.shape)
+        print('audio_X_test:',self.audio_X_test.shape)
 
 
 
@@ -66,12 +115,11 @@ class DecisionTree(object):
         self.train_label = train_label
         self.test_data = test_data
         self.Y_predict = np.array([])
-    
-    def train(self):
-        self.model.fit(self.train_data, self.train_label)
-    
+       
     def predict(self):
+        self.model.fit(self.train_data, self.train_label)
         self.Y_predict = self.model.predict(self.test_data)
+        return self.Y_predict
         # print(Y_predict)
 
     def save(self):
@@ -80,10 +128,9 @@ class DecisionTree(object):
         np.savetxt('dicision_output.csv', Y_predict, delimiter = ',', fmt = '%d')
 
     def cal_correct_rate(self):
-        Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/output.csv', dtype = int)
-        correct = np.equal(Y_true, self.Y_predict)
-        correct_rate = np.mean(correct)
-        print(correct_rate)
+        Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/reference_answer.csv', dtype = int)
+        weighted_f1 = f1_score(Y_true, self.Y_predict, average='weighted')
+        print('weighted_f1:',weighted_f1)
 
 
 if __name__ == '__main__':
@@ -93,11 +140,22 @@ if __name__ == '__main__':
     data_loader.load_test_data()
     data_loader.DataProcess() 
     data_loader.show_data_info()
-    X_train = data_loader.X_train
+    text_X_train = data_loader.text_X_train
+    visual_X_train = data_loader.visual_X_train
+    audio_X_train = data_loader.audio_X_train
     Y_train = data_loader.Y_train
-    X_test = data_loader.X_test
-    model = DecisionTree(X_train, Y_train, X_test)
-    model.train()
-    model.predict()
-    model.save()
-    model.cal_correct_rate()
+
+    text_X_test = data_loader.text_X_test
+    visual_X_test = data_loader.visual_X_test
+    audio_X_test = data_loader.audio_X_test
+    text_model = DecisionTree(text_X_train, Y_train, text_X_test)
+    pred_text = text_model.predict()
+    visual_model = DecisionTree(visual_X_train, Y_train, visual_X_test)
+    pred_visual = visual_model.predict()
+    audio_model = DecisionTree(audio_X_train, Y_train, audio_X_test)
+    pred_audio = audio_model.predict()
+    pred_final = mode(np.c_[pred_text, pred_audio, pred_visual], axis=1)[0]
+
+    Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/reference_answer.csv', dtype = int)
+    weighted_f1 = f1_score(Y_true, pred_final, average='weighted')
+    print('weighted_f1:',weighted_f1)   
