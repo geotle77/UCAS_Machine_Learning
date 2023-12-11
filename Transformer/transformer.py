@@ -15,13 +15,16 @@ Tensor = torch.Tensor
 class Classifier(nn.Module):
     def __init__(self, transformer_dim, num_classes):
         super(Classifier, self).__init__()
-        self.fc = nn.Linear(transformer_dim, num_classes)
+        self.fc = nn.Linear(transformer_dim, 1)
+        self.fc2 = nn.Linear(1024, num_classes)
 
     def forward(self, x):
         x = self.fc(x)
+        output = x.mean(dim=2)
+        output = self.fc2(output)
         # 在损失函数中使用CrossEntropyLoss时，不需要手动添加softmax
         # 如果需要概率输出，可以在预测时使用F.softmax
-        return x
+        return output
 
 
 class Input_Solver(nn.Module):

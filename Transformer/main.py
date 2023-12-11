@@ -66,15 +66,15 @@ print('1')
 '''
 
 # 定义超参数
-d_model = 4
+d_model = 8
 nhead = 4
 num_encoder_layers = 3
 num_decoder_layers = 3
 dim_feedforward = 64
 dropout = 0.01
-learning_rate = 0.00001
+learning_rate = 0.0001
 batch_size = 10
-epochs = 15
+epochs = 5
 shuffle = True  # 是否打乱数据
 num_workers = 4  # 设置用于加载数据的线程数
 
@@ -89,7 +89,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size)
 
 # 创建Transformer模型
 model = Transformer(
-    d_model=16,
+    d_model=d_model,
     nhead=nhead,
     num_encoder_layers=num_encoder_layers,
     num_decoder_layers=num_decoder_layers,
@@ -108,16 +108,18 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 
 # 训练循环
-#model.eval()
+model.eval()
 for epoch in range(epochs):
+    if epoch > 15:
+        learning_rate = 0.00001
     total_loss = 0.0
     for batch in tqdm(dataloader, desc=f"Training Epoch {epoch}"):
         # 将输入数据传递给模型
         batch_src, batch_tgt = [x.to(device) for x in batch]
-        tgt = batch_tgt.view(batch_tgt.shape[0],1)
+        tgt = batch_tgt.view(batch_tgt.shape[0], 1)
         output = model(batch_src, tgt=tgt)
 
-        output = output.view(output.shape[0], output.shape[2])
+        #output = output.view(output.shape[0], output.shape[2])
 
         '''
         standard = torch.zeros((output.shape[0], 1, 6))
@@ -154,12 +156,12 @@ for batch in tqdm(test_dataloader, desc=f"Testing"):
         max_idx = [0] * output.shape[0]
         print(output.shape)
         for i in range(len(output)):
-            for j in range(len(output[i])):
-                max = -10000
-                for k in range(len(output[i][j])):
-                    if (output[i][j][k] > max):
-                        max_idx[i] = k
-                        max = output[i][j][k]
+            #for j in range(len(output[i])):
+            max = -10000
+            for k in range(len(output[i])):
+                if (output[i][k] > max):
+                    max_idx[i] = k
+                    max = output[i][k]
 
         print(max_idx)
 
@@ -186,12 +188,11 @@ for batch in tqdm(dataloader, desc=f"Testing"):
 
         max_idx = [0] * output.shape[0]
         for i in range(len(output)):
-            for j in range(len(output[i])):
-                max = -10000
-                for k in range(len(output[i][j])):
-                    if (output[i][j][k] > max):
-                        max_idx[i] = k
-                        max = output[i][j][k]
+            max = -10000
+            for k in range(len(output[i])):
+                if (output[i][k] > max):
+                    max_idx[i] = k
+                    max = output[i][k]
 
         print(max_idx)
         print(targets)
