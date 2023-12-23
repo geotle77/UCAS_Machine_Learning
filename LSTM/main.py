@@ -22,7 +22,7 @@ class MultiModalModel(object):
 
     def dataprocess(self):
         dialog_text_train = [torch.tensor(self.text_train_data[key]) for key in self.text_train_data.keys()]
-        padded_dialogues = torch.nn.utils.rnn.pad_sequence(dialog_text_train, batch_first=True)
+        padded_dialogues = torch.nn.utils.rnn.pad_sequence(dialog_text_train, batch_first=True, padding_value=self.pad_value)
         print("padded_dialogue's shape,for training:",   padded_dialogues.shape)
         dialog_label_train = [torch.tensor(self.train_label[key]) for key in self.train_label.keys()]
         padded_labels = torch.nn.utils.rnn.pad_sequence(dialog_label_train, batch_first=True, padding_value=self.pad_value)
@@ -37,29 +37,32 @@ class MultiModalModel(object):
         padded_labels = padded_labels.to(device)
 
         optimizer = optim.Adam(self.model.parameters())
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.01)  # 学习率调度器
+        # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.01)  # 学习率调度器
         criterion = nn.CrossEntropyLoss(ignore_index=self.pad_value) 
         best_loss = float('inf')
         batch_size = 20  # 设置批次大小
         num_batches = len(padded_dialogues) // batch_size  # 计算批次数量
 
-        for epoch in range(100):
+        for epoch in range(40):
+            correct = 0  # 正确预测的标签数
+            total = 0  # 总标签数
             for i in range(num_batches):
-                # 获取一个批次的数据
                 batch_dialogues = padded_dialogues[i*batch_size : (i+1)*batch_size]
                 batch_labels = padded_labels[i*batch_size : (i+1)*batch_size]
 
                 optimizer.zero_grad()
                 outputs = self.model(batch_dialogues)
                 _, predicted = torch.max(outputs.data, -1)  # 获取每个时间步的最大概率对应的标签
-                total = batch_labels.numel()  # 总标签数
-                correct = (predicted == batch_labels).sum().item()  # 正确预测的标签数
-                accuracy = correct / total  # 计算正确率
+                total += batch_labels.numel()  # 更新总标签数
+                correct += (predicted == batch_labels).sum().item()  # 更新正确预测的标签数
                 loss = criterion(outputs.view(-1, 6), batch_labels.view(-1))
                 loss.backward()
                 optimizer.step()
-                print('epoch: {}, batch: {}, loss: {}, accuracy: {}'.format(epoch, i, loss.item(), accuracy))
-            scheduler.step()
+                # scheduler.step()
+
+            accuracy = correct / total  # 计算整个epoch的正确率
+            print('epoch: {}, loss: {}, accuracy: {}'.format(epoch, loss.item(), accuracy))
+                
     
     def evalaute(self):
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
