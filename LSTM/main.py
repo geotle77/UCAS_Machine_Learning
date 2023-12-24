@@ -84,7 +84,7 @@ class MultiModalModel(object):
         predictions = torch.argmax(outputs, dim=-1)
         masked_predictions = predictions[mask_reduced]
         Y_predict = masked_predictions.cpu().numpy()
-        Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/reference_answer.csv', dtype = int)
+        Y_true = np.loadtxt('./reference_answer.csv', dtype = int)
         weighted_f1 = f1_score(Y_true, Y_predict, average='weighted')
         accuary = np.mean(Y_true == Y_predict)
         print('accuary:',accuary)
@@ -94,7 +94,7 @@ class MultiModalModel(object):
             
 
 if __name__ == '__main__':
-    model=MultiModalModel('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/data')
+    model=MultiModalModel('./data')
     model.train()
     model.evalaute()
 
