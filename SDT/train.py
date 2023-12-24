@@ -8,7 +8,14 @@ from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 from dataloader import IEMOCAPDataset
 from model import MaskedNLLLoss, Transformer_Based_Model
-from sklearn.metrics import f1_score, confusion_matrix, accuracy_score, classification_report
+from sklearn.metrics import f1_score, accuracy_score
+from mytools import get_test_accuracy
+import csv
+
+final_labels = ["test_pred"]
+accuracy = 0
+max_accuracy = 0
+fscore = 0
 
 def get_train_valid_sampler(trainset, valid=0.1):
     size = len(trainset)
@@ -42,7 +49,7 @@ def get_IEMOCAP_loaders(batch_size=32, valid=0.1, num_workers=0, pin_memory=Fals
     return train_loader, valid_loader, test_loader
 
 
-def train_or_eval_model(model, loss_function, dataloader, optimizer=None, train=False, gamma_1=1.0, gamma_2=1.0, gamma_3=1.0):
+def train_or_eval_model(model, loss_function, dataloader, optimizer=None, train=False, gamma_1=1.0, gamma_2=1.0):
     losses, preds, labels, masks = [], [], [], []
 
     assert not train or optimizer!=None
@@ -50,6 +57,7 @@ def train_or_eval_model(model, loss_function, dataloader, optimizer=None, train=
         model.train()
     else:
         model.eval()
+        return float('nan'), float('nan'), [], [], [], float('nan')
 
     for data in dataloader:
         if train:
@@ -95,6 +103,46 @@ def train_or_eval_model(model, loss_function, dataloader, optimizer=None, train=
     avg_fscore = round(f1_score(labels,preds, sample_weight=masks, average='weighted')*100, 2)  
     return avg_loss, avg_accuracy, labels, preds, masks, avg_fscore
 
+def reserve_in_csv(model, dataloader, reserve):
+    global accuracy, fscore, max_accuracy, final_labels
+    if not reserve:
+        csv_labels = []
+        model.eval()
+
+        for data in dataloader:
+            textf, visuf, acouf, qmask, umask, label = [d.cuda() for d in data[:-1]] if torch.cuda.is_available() else data[:-1]
+            qmask = qmask.permute(1, 0, 2)
+            lengths = [(umask[j] == 1).nonzero().tolist()[-1][0] + 1 for j in range(len(umask))]
+
+            log_prob1, log_prob2, log_prob3, all_log_prob, all_prob = model(textf, visuf, acouf, umask, qmask, lengths)
+
+            lp_ = all_prob.view(-1, all_prob.size()[2])
+            umask = umask.view(-1).tolist()
+            #print(umask)
+
+            pred_ = torch.argmax(lp_, 1)
+            pred_lst = pred_.tolist()
+            pred_lst = [elem for mask, elem in zip(umask, pred_lst) if mask == 1.0]
+            csv_labels.extend(pred_lst)
+
+        # 打开 CSV 文件进行写入
+        #print(len(csv_labels))
+        accuracy, fscore = get_test_accuracy(csv_labels, "./reference.csv")
+        if accuracy > max_accuracy:
+            max_accuracy = accuracy
+            final_labels = csv_labels.copy()
+
+    else:
+        final_labels.insert(0, "test_pred")
+        print(len(final_labels))
+        with open('./submission.csv', 'w', newline='') as file:
+            # 创建 CSV 写入器对象
+            writer = csv.writer(file)
+
+            # 写入数据
+            for item in final_labels:
+                writer.writerow([item])
+
 
 if __name__ == '__main__':
     cuda_availdabe = torch.cuda.is_available()
@@ -103,7 +151,7 @@ if __name__ == '__main__':
     else:
         print('Running on CPU')
 
-    epochs = 50
+    epochs = 1000
     batch_size = 16
     hidden_dim = 1024
     dropout = 0.5
@@ -119,8 +167,6 @@ if __name__ == '__main__':
 
     n_speakers = 2
     n_classes =  6
-
-
 
     model = Transformer_Based_Model(D_text, D_visual, D_audio, n_head,
                                         n_classes=n_classes,
@@ -140,7 +186,7 @@ if __name__ == '__main__':
                                     1/0.127711,
                                     1/0.252668])
     loss_function = MaskedNLLLoss(loss_weights.cuda() if cuda_availdabe else loss_weights)
-    train_loader, valid_loader, test_loader = get_IEMOCAP_loaders(valid=0.1,
+    train_loader, valid_loader, test_loader = get_IEMOCAP_loaders(valid=0.0,
                                                                   batch_size=batch_size,
                                                                   num_workers=0)
 
@@ -153,7 +199,7 @@ if __name__ == '__main__':
         train_loss, train_acc, _, _, _, train_fscore = train_or_eval_model(model, loss_function, train_loader, optimizer, True)
         valid_loss, valid_acc, _, _, _, valid_fscore = train_or_eval_model(model, loss_function, valid_loader)
         test_loss, test_acc, test_label, test_pred, test_mask, test_fscore = train_or_eval_model(model, loss_function, test_loader, e)
-        all_fscore.append(test_fscore)
+        reserve_in_csv(model, test_loader, reserve=False)
 
         if best_fscore == None or best_fscore < test_fscore:
             best_fscore = test_fscore
@@ -161,10 +207,14 @@ if __name__ == '__main__':
 
 
         print('epoch: {}, train_loss: {}, train_acc: {}, train_fscore: {}, valid_loss: {}, valid_acc: {}, valid_fscore: {}, test_loss: {}, test_acc: {}, test_fscore: {}, time: {} sec'.\
-                format(e+1, train_loss, train_acc, train_fscore, valid_loss, valid_acc, valid_fscore, test_loss, test_acc, test_fscore, round(time.time()-start_time, 2)))
+                format(e+1, train_loss, train_acc, train_fscore, valid_loss, valid_acc, valid_fscore, test_loss, accuracy, fscore, round(time.time()-start_time, 2)))
+        all_fscore.append(fscore)
 
+
+    reserve_in_csv(model, test_loader, reserve=True)
 
     print('Test performance..')
+    print("Max_Acc: {}".format(max_accuracy))
     print('F-Score: {}'.format(max(all_fscore)))
     print('F-Score-index: {}'.format(all_fscore.index(max(all_fscore)) + 1))
 

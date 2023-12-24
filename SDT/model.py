@@ -4,18 +4,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import math
 
-
-class MaskedKLDivLoss(nn.Module):
-    def __init__(self):
-        super(MaskedKLDivLoss, self).__init__()
-        self.loss = nn.KLDivLoss(reduction='sum')
-
-    def forward(self, log_pred, target, mask):
-        mask_ = mask.view(-1, 1)
-        loss = self.loss(log_pred * mask_, target * mask_) / torch.sum(mask)   
-        return loss
-
-
 class MaskedNLLLoss(nn.Module):
     def __init__(self, weight=None):
         super(MaskedNLLLoss, self).__init__()
@@ -271,12 +259,8 @@ class Transformer_Based_Model(nn.Module):
     def forward(self, textf, visuf, acouf, u_mask, qmask, dia_len):
         spk_idx = torch.argmax(qmask, -1)
         origin_spk_idx = spk_idx
-        if self.n_speakers == 2:
-            for i, x in enumerate(dia_len):
-                spk_idx[i, x:] = (2*torch.ones(origin_spk_idx[i].size(0)-x)).int().cuda()
-        if self.n_speakers == 9:
-            for i, x in enumerate(dia_len):
-                spk_idx[i, x:] = (9*torch.ones(origin_spk_idx[i].size(0)-x)).int().cuda()
+        for i, x in enumerate(dia_len):
+            spk_idx[i, x:] = (2*torch.ones(origin_spk_idx[i].size(0)-x)).int().cuda()
         spk_embeddings = self.speaker_embeddings(spk_idx)
 
         #print(textf)
