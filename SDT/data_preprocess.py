@@ -1,67 +1,47 @@
-import pickle
-import pandas as pd
-import csv
-import os
-print(os.getcwd())
+import torch
+from torch.utils.data import Dataset
+from torch.nn.utils.rnn import pad_sequence
+import pickle, pandas as pd
 
-DATA_FILE_PATH = "SDT/data/"
 
-with open(DATA_FILE_PATH + 'text_features.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoText = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
+class IEMOCAPDataset(Dataset):
+    def __init__(self, train=True):
+        self.videoSpeakers, self.videoLabels, self.videoText,\
+        self.videoAudio, self.videoVisual, self.trainVid,\
+        self.testVid = pickle.load(open('data/iemocap_multimodal_features.pkl', 'rb'))
+        self.keys = [x for x in (self.trainVid if train else self.testVid)]
 
-with open(DATA_FILE_PATH + 'train_label.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoLabels = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
+        self.len = len(self.keys)
 
-with open(DATA_FILE_PATH + 'Speakers.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoSpeakers = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
+        if(train):
+            self.train_ = 1
+        else:
+            self.train_ = 0
 
-with open(DATA_FILE_PATH + 'IDs.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoIDs = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
+    def __getitem__(self, index):
+        vid = self.keys[index]
+        if self.train_:
+            return torch.FloatTensor(self.videoText[vid]),\
+                   torch.FloatTensor(self.videoVisual[vid]),\
+                   torch.FloatTensor(self.videoAudio[vid]),\
+                   torch.FloatTensor([[1,0] if x=='M' else [0,1] for x in\
+                                      self.videoSpeakers[vid]]),\
+                   torch.FloatTensor([1]*len(self.videoText[vid])),\
+                   torch.LongTensor(self.videoLabels[vid]),\
+                   vid
+        else:
+            return torch.FloatTensor(self.videoText[vid]), \
+                   torch.FloatTensor(self.videoVisual[vid]), \
+                   torch.FloatTensor(self.videoAudio[vid]), \
+                   torch.FloatTensor([[1, 0] if x == 'M' else [0, 1] for x in \
+                                      self.videoSpeakers[vid]]), \
+                   torch.FloatTensor([1] * len(self.videoText[vid])), \
+                   torch.zeros(3,4), \
+                   vid
 
-with open(DATA_FILE_PATH + 'audio_features.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoAudio = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
+    def __len__(self):
+        return self.len
 
-with open(DATA_FILE_PATH + 'visual_features.pkl', 'rb') as f:
-    features = pickle.load(f)
-# 提取以"dialog+数字ID"为键的二维数组
-videoVisual = [v for k, v in features.items() if k.startswith('dialog_') and k[7:].isdigit()]
-
-with open('SDT/data/train_ids.csv', 'r') as file:
-    # 创建CSV读取器
-    csv_reader = csv.reader(file)
-
-    # 从每一行中获取第一列数据，并将其存储在一个列表中
-    trainVid = [row[0][7:] for row in csv_reader]
-    trainVid.pop(0)
-    trainVid = [int(i)-1 for i in trainVid]
-
-with open('SDT/data/test_ids.csv', 'r') as file:
-    # 创建CSV读取器
-    csv_reader = csv.reader(file)
-
-    # 从每一行中获取第一列数据，并将其存储在一个列表
-    testVid = [row[0][7:] for row in csv_reader]
-    testVid.pop(0)
-    testVid = [int(i)-1 for i in testVid]
-
-save_data = (videoIDs, videoSpeakers, videoLabels, videoText, videoAudio, videoVisual, trainVid, testVid)
-
-with open('./data/iemocap_multimodal_features.pkl', 'wb') as file:
-    pickle.dump(save_data, file)
-
-with open('./data/iemocap_multimodal_features.pkl', 'rb') as file:
-    features = pickle.load(file)
-    print("1")
-    for i in features[7]:
-        if isinstance(i, str):
-            print(i)
+    def collate_fn(self, data):
+        dat = pd.DataFrame(data)
+        return [pad_sequence(dat[i]) if i<4 else pad_sequence(dat[i], True) if i<6 else dat[i].tolist() for i in dat]

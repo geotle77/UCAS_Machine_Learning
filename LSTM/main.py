@@ -10,7 +10,8 @@ from sklearn.metrics import f1_score
 class MultiModalModel(object):
     def __init__(self, path):
         super().__init__()
-        self.model = LSTMModel(1024, 512, 3, 6)
+        #1582 342
+        self.model = LSTMModel(1024, 512, 1, 6)
         data=DataLoader(path)
         data.load_train_data()
         data.load_train_label()
@@ -36,14 +37,14 @@ class MultiModalModel(object):
         padded_dialogues = padded_dialogues.to(device)
         padded_labels = padded_labels.to(device)
 
-        optimizer = optim.Adam(self.model.parameters())
+        optimizer = optim.Adam(self.model.parameters(), lr = 0.001)
         # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.01)  # 学习率调度器
         criterion = nn.CrossEntropyLoss(ignore_index=self.pad_value) 
         best_loss = float('inf')
-        batch_size = 20  # 设置批次大小
+        batch_size = 30  # 设置批次大小
         num_batches = len(padded_dialogues) // batch_size  # 计算批次数量
 
-        for epoch in range(40):
+        for epoch in range(100):
             correct = 0  # 正确预测的标签数
             total = 0  # 总标签数
             for i in range(num_batches):
@@ -56,6 +57,8 @@ class MultiModalModel(object):
                 total += batch_labels.numel()  # 更新总标签数
                 correct += (predicted == batch_labels).sum().item()  # 更新正确预测的标签数
                 loss = criterion(outputs.view(-1, 6), batch_labels.view(-1))
+                # print(outputs.view(-1, 6).shape, batch_labels.view(-1).shape)
+                
                 loss.backward()
                 optimizer.step()
                 # scheduler.step()
@@ -84,7 +87,7 @@ class MultiModalModel(object):
         predictions = torch.argmax(outputs, dim=-1)
         masked_predictions = predictions[mask_reduced]
         Y_predict = masked_predictions.cpu().numpy()
-        Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/reference_answer.csv', dtype = int)
+        Y_true = np.loadtxt('./reference_answer.csv', dtype = int)
         weighted_f1 = f1_score(Y_true, Y_predict, average='weighted')
         accuary = np.mean(Y_true == Y_predict)
         print('accuary:',accuary)
@@ -94,7 +97,7 @@ class MultiModalModel(object):
             
 
 if __name__ == '__main__':
-    model=MultiModalModel('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/data')
+    model=MultiModalModel('./data')
     model.train()
     model.evalaute()
 
