@@ -9,7 +9,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 from dataloader import IEMOCAPDataset
 from model import MaskedNLLLoss, Transformer_Based_Model
 from sklearn.metrics import f1_score, accuracy_score
-from mytools import get_test_accuracy
+from mytools import get_test_accuracy, record_acc, record_f1_scores
 import csv
 
 final_labels = ["test_pred"]
@@ -127,7 +127,7 @@ def reserve_in_csv(model, dataloader, reserve):
 
         # 打开 CSV 文件进行写入
         #print(len(csv_labels))
-        accuracy, fscore = get_test_accuracy(csv_labels, "./reference.csv")
+        accuracy, fscore = get_test_accuracy(csv_labels, ".Csv/reference.csv")
         if accuracy > max_accuracy:
             max_accuracy = accuracy
             final_labels = csv_labels.copy()
@@ -135,7 +135,7 @@ def reserve_in_csv(model, dataloader, reserve):
     else:
         final_labels.insert(0, "test_pred")
         print(len(final_labels))
-        with open('./submission.csv', 'w', newline='') as file:
+        with open('.Csv/submission.csv', 'w', newline='') as file:
             # 创建 CSV 写入器对象
             writer = csv.writer(file)
 
@@ -151,10 +151,12 @@ if __name__ == '__main__':
     else:
         print('Running on CPU')
 
-    epochs = 1000
-    batch_size = 16
+    epochs = 750
+    batch_size = 8
     hidden_dim = 1024
     dropout = 0.5
+
+    
     n_head = 8
     lr = 0.00001
     l2 = 0.000001
@@ -191,7 +193,7 @@ if __name__ == '__main__':
                                                                   num_workers=0)
 
     best_fscore, best_loss, best_label, best_pred, best_mask = None, None, None, None, None
-    all_fscore, all_acc, all_loss = [], [], []
+    all_fscore, all_test_acc, all_loss, all_train_acc = [], [], [], []
 
     for e in range(epochs):
         start_time = time.time()
@@ -209,6 +211,8 @@ if __name__ == '__main__':
         print('epoch: {}, train_loss: {}, train_acc: {}, train_fscore: {}, valid_loss: {}, valid_acc: {}, valid_fscore: {}, test_loss: {}, test_acc: {}, test_fscore: {}, time: {} sec'.\
                 format(e+1, train_loss, train_acc, train_fscore, valid_loss, valid_acc, valid_fscore, test_loss, accuracy, fscore, round(time.time()-start_time, 2)))
         all_fscore.append(fscore)
+        all_test_acc.append(accuracy)
+        all_train_acc.append(train_acc)
 
 
     reserve_in_csv(model, test_loader, reserve=True)
@@ -217,5 +221,10 @@ if __name__ == '__main__':
     print("Max_Acc: {}".format(max_accuracy))
     print('F-Score: {}'.format(max(all_fscore)))
     print('F-Score-index: {}'.format(all_fscore.index(max(all_fscore)) + 1))
+
+    record_acc(all_train_acc, all_test_acc, '.Csv/Acc.csv')
+    record_f1_scores(all_fscore, '.Csv/F1_Scores.csv')
+
+
 
 
