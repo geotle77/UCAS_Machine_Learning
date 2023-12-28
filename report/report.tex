@@ -210,14 +210,14 @@
             会根据对话集来分配不同基学习器的训练数据。后由于单独的一个对话集训练数据过少导致容易过拟合，且泛化性能很差，
             因此尝试对每个基学习器的训练数据随机分配3-4个对话集进行训练。
             \begin{center}
-                \includegraphics[scale = 1.1]{tradition1.png}
+                \includegraphics[scale = 1.1]{graph/tradition1.png}
             \end{center}
 
             在基学习器的训练过程中，会使用adaboost算法进行迭代，迭代三次来获得不同的基学习器，
             每次根据上次训练出的基学习器在训练集上的误差来进行训练数据的权重分配一进行迭代
             (具体实现可以参考adaboost算法以及代码实现)。
             \begin{center}
-                \includegraphics[scale = 1.1]{tradition2.png}
+                \includegraphics[scale = 1.1]{graph/tradition2.png}
             \end{center}
 
             在训练完成151个基学习器之后，并不会立刻进行预测并进行众数选举，而是会让每个基学习器在整个的训练集上进行预测来确定其泛化性能，
@@ -283,7 +283,7 @@
             (NLP, Natural Language Processing) ，合理运用 $t$ 或之前的输入来处理 $t+n$时刻显然可以更加合理的运用输入的信息。递归神经网络 (RNN, Recurssion Neural Network)就是被设计出来运用到时间维度上信息从而更加准确地在时间维度上处理数据，一个简单的递归神经网络可以用这种方式表示：
             
             \begin{center}
-                \includegraphics[scale = 0.7]{lstm1.png}
+                \includegraphics[scale = 0.7]{graph/lstm1.png}
             \end{center}
 
             在图中， $x_t$是在$t$时刻的输入信息， $h_t$是在$t$时刻的输出信息，
@@ -304,7 +304,7 @@
             LSTM循环网络“细胞”的框图可以表示为：
 
             \begin{center}
-                \includegraphics[scale = 1]{lstm2.png}
+                \includegraphics[scale = 1]{graph/lstm2.png}
             \end{center}
 
             细胞彼此连接，以代替一般循环网络中普通的隐藏单元。如果sigmoid输入门允许，它的值可以累加到状态。
@@ -315,7 +315,7 @@
             共同作用产生当前LSTM的细胞状态 $C_t$ .
 
             \begin{center}
-                \includegraphics[scale = 0.6]{lstm3.png}
+                \includegraphics[scale = 0.6]{graph/lstm3.png}
             \end{center}
 
             总而言之，在决策树模型解决该问题接连碰壁后，在面对该多模态情感分析任务时，
@@ -423,7 +423,7 @@
             Transformer 模型的编码器层是该模型的关键组件之一，它负责处理输入序列的信息并生成表\\示。
 
             \begin{center}
-                \includegraphics[scale=0.9]{transformer1.png}
+                \includegraphics[scale=0.9]{graph/transformer1.png}
             \end{center}
 
             下面是其关键组件：
@@ -438,7 +438,7 @@
                 这些头的输出被拼接在一起并通过线性变换进行整合。
 
                 \begin{center}
-                    \includegraphics[scale=0.9]{transformer2.png}
+                    \includegraphics[scale=0.9]{graph/transformer2.png}
                 \end{center}
 
                 \item [2. ]\textbf{前馈神经网络}\\
@@ -580,8 +580,8 @@
             通过PCA降维画出来的数据分布如下：
 
             \begin{center}
-                \includegraphics[scale=0.8]{transformer3.png}\\
-                \includegraphics[scale=0.8]{transformer4.png}
+                \includegraphics[scale=0.8]{graph/transformer3.png}\\
+                \includegraphics[scale=0.8]{graph/transformer4.png}
             \end{center}
 
             可以看到，即使降维之后，数据分布仍然具有一定的区分性，具体表现在不同颜色的数据集中的区域不同。
@@ -592,15 +592,15 @@
             \begin{enumerate}
                 \item [1. ]\textbf{RandomForest做基学习器：20\%}
                 \begin{center}
-                    \includegraphics[scale=1]{result1.png}
+                    \includegraphics[scale=1]{graph/result1.png}
                 \end{center}
                 \item [2. ]\textbf{Decisiontree做基学习器：20\%}
                 \begin{center}
-                    \includegraphics[scale=1]{result2.png}
+                    \includegraphics[scale=1]{graph/result2.png}
                 \end{center}
                 \item [3. ]\textbf{ogistic做基学习器：23\%}
                 \begin{center}
-                    \includegraphics[scale=1]{result3.png}
+                    \includegraphics[scale=1]{graph/result3.png}
                 \end{center}
             \end{enumerate}
 
@@ -629,7 +629,7 @@
             实践证明，简单的LSTM模型在处理该问题时仍然显得力不从心，一方面其在训练时loss收敛过早，正确率不高，
             猜测是因为梯度消失了。
             \begin{center}
-                \includegraphics[scale=0.5]{result4.png}
+                \includegraphics[scale=0.5]{graph/result4.png}
             \end{center}
 
             \subsubsection{结果分析}
@@ -654,7 +654,7 @@
             使用我们的Transformer\_Based模型的成绩是比赛中所有队伍最好的，反映了我们的模型设计是较好的。
 
             \begin{center}
-                \includegraphics[scale=1]{result5.png}
+                \includegraphics[scale=1]{graph/result5.png}
             \end{center}
 
             正确率和F1\_Score变化图：
@@ -662,7 +662,7 @@
             训练集和测试集正确率和F1\_Score变化图如下所示：
 
             \begin{center}
-                \includegraphics[scale=1]{result6.png}\\
+                \includegraphics[scale=1]{graph/result6.png}\\
             \end{center}
 
             可以看到，随着轮数的增多，训练集正确率不断上升，最终接近100\%，从训练集的loss可以看出，
@@ -676,7 +676,7 @@
             本组成员翻阅了IEMOCAP数据集有关的论文，得到的效果如下：
 
             \begin{center}
-                \includegraphics[scale=0.9]{result7.png}
+                \includegraphics[scale=0.9]{graph/result7.png}
             \end{center}
 
             上面结果截图自\textit{ UniMSE: Towards Unified Multimodal Sentiment Analysis and Emotion Recognition. }论文，
