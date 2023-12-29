@@ -518,24 +518,56 @@
                 \item [1. ]\textbf{输入卷积}
                 \par 在数据集中，文本，视频，音频的特征分别为1024，342，1582。
                 为了确保三个模态的特征表示位于同一空间，我们将它们输入到一维卷积层中，
-                保证输出的维度均为隐藏层的维度。
+                保证输出的维度均为隐藏层的维度：
+                \begin{align}
+                    \textbf{U}_m' = \textrm{Conv1D}(\textbf{U}_m',k_m) \in \mathbb{R} ^{N \times d},\quad m \in \{t,a,v\}
+                \end{align}
+                其中，$k_m$ 是 $m$ 模态的卷积核的大小，$N$ 是对话中的话语数量，$d$ 是共同的维度。
                 
                 \item [2. ]\textbf{位置嵌入}\par
                 为了利用话语序列的位置和顺序信息，引入Transformer的位置嵌入来加上第一步得到的卷积输出
 
-                其中pos为话语索引，i为维度索引。
+                \begin{align}
+                    &\textbf{PE}_{(pos, 2i)} = \sin(\frac{pos}{10000^{2i/d}})\\
+                    &\textbf{PE}_{(pos, 2i+1)} = \cos(\frac{pos}{10000^{2i/d}})
+                \end{align}
+                其中$pos$为话语索引，$i$为维度索引。
+            
                 
                 \item [3. ]\textbf{说话人性别嵌入}\par
                 为了捕获话语序列中的说话人的性别信息，我们设计了说话人性别嵌入来加上第一步得到的卷积输出。
                 说话人性别会在对话中被映射成一个向量:
+
+                \begin{align}
+                    \textbf{s}_j = \textbf{V}_s \textbf{o}(s_j) \in \mathbb{R}^d,\quad j = 1, 2, \cdots,M
+                \end{align}
+                其中$M$是说话人的数量，$\textbf{V}_s \in \mathbb{R}^{d\times M}$是一个可训练的说话者嵌入矩阵，
+                $\textbf{o}(s_j)$是一个关于说话者$s_j$的独热编码向量，即向量中第$j$个元素是1，其余为0。
+
+                因此，与对话相对应的说话者嵌入可以表示为：
+                \begin{align}
+                    \textbf{SE}= [\textbf{s}_{\phi (u_1)};\textbf{s}_{\phi (u_2)};\cdots ;\textbf{s}_{\phi (u_N)} ]
+                \end{align}
                 
-                总体而言，通过第2、3步，我们将位置和说话人性别嵌入到了卷积层的输出。
+                总体而言，通过第2、3步，我们将位置和说话人性别嵌入到了卷积层的输出：
+                \begin{align}
+                    \textbf{H}_m = \textbf{U}_m'+\textbf{PE}+\textbf{SE}
+                \end{align}
+                其中，$\textbf{H}_m $为$m$ 模态的低层次位置感知和说话者感知的话语序列表示。
                 
                 \item [4. ]\textbf{模态内和模态间的Transformer编码器：}\par
                 我们用9个模态内和模态间的Transforner编码器来模拟三个输入模态内和模态间相互作用。
-                Transforner编码器的多注意力层包含了三个输入张量：Q 、K、 V。对于模态内，Transforner编码器的Q、
-                K、V张量均是该模态的输入信息；对于模态间，我们将一个模态的输入信息作为\\Transforner编码器的Q，
-                另一个模态的输入信息作为Transforner编码器的K，V。
+                Transforner编码器的多注意力层包含了三个输入张量：\textbf{Q 、K、 V。}
+                
+                对于模态内，Transforner编码器的Q、K、V张量均是该模态的输入信息：
+                \begin{align}
+                    \textbf{H}_{m\rightarrow m} = \textrm{Transformer}(\textbf{H}_{m},\textbf{H}_{m},\textbf{H}_{m}) \in \mathbb{R}^{N\times d}
+                \end{align}
+                
+                对于模态间，我们将一个模态的输入信息作为Transforner编码器的Q，另一个模态的输入信息作为Transforner编码器的K，V。
+                \begin{align}
+                    \textbf{H}_{n\rightarrow m} = \textrm{Transformer}(\textbf{H}_{m},\textbf{H}_{n},\textbf{H}_{n}) \in \mathbb{R}^{N\times d}
+                \end{align}
 
                 通过上面操作，我们可以较好地模拟到对话中模态间的相互作用。
                 
