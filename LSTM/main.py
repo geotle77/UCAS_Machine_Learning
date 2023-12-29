@@ -135,7 +135,7 @@ class MultiModalModel(object):
             
 
 if __name__ == '__main__':
-    model=MultiModalModel('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/data')
+    model=MultiModalModel('./data')
     model.train()
     model.evalaute()
 

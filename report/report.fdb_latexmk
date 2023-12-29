@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1703842127 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1703842131
+["pdflatex"] 1703850248 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1703850254
   "c:/Windows/Fonts/msyh.ttc" 1702111396 19701556 07c864a5b15e68fa47639738197fae38 ""
   "c:/Windows/Fonts/simhei.ttf" 1689343860 9753388 6abc0fcfbaa40600f9cecca3afeb3aa7 ""
   "c:/Windows/Fonts/simsun.ttc" 1702111397 18008680 490583a172d4371a68d1e0526a6bca81 ""
@@ -171,6 +171,7 @@
   "c:/texlive/2022/texmf-dist/fonts/tfm/zhmetrics/unisong/unisongff.tfm" 1657696356 1172 156175f4eaa9daea4e21b890ac9fafb8 ""
   "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1657692850 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1657692850 32080 340ef9bf63678554ee606688e7b5339d ""
+  "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1657692850 30251 6afa5cb1d0204815a708a080681d4674 ""
   "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1657692850 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1657692850 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1657692850 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
@@ -285,7 +286,7 @@
   "c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1657696389 4375701 2304959b07afa8464e69942b00d33bf1 ""
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1657696497 1886465 e65dad9455e1112e0c68b8184fde8cb3 ""
   "c:/texlive/2022/texmf.cnf" 1657696365 713 e69b156964470283e0530f5060668171 ""
-  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1703842126 57269 c9d20329ddd6fd2dbaf86558325f982f ""
+  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1703850247 59602 f210ffa3b9fa8530913600f30b6ac438 ""
   "graph/lstm1.png" 1703779022 25390 4b5ebcae810616fe77584f4e3bb3e6dd ""
   "graph/lstm2.png" 1703779210 132047 c5f6923b4956d1917d61f6edba4e535f ""
   "graph/lstm3.png" 1703779227 175721 5c627afa7fc85769f6d5ca9691973a00 ""
@@ -304,10 +305,10 @@
   "graph/transformer2.png" 1703781127 47024 8ded6705f25660c6a27eb7d49061d116 ""
   "graph/transformer3.png" 1703780445 119262 6f99d7764f4b730c2f5a3d6160884871 ""
   "graph/transformer4.png" 1703780469 173525 7dbc41ea7577c69e8def1840343afa29 ""
-  "report.aux" 1703842131 4731 a54ca9ff1856bb2dfa4160d2051553ff "pdflatex"
-  "report.out" 1703842131 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
-  "report.tex" 1703842126 57269 c9d20329ddd6fd2dbaf86558325f982f ""
-  "report.toc" 1703842131 2732 0aa1e7f21f6e6102c827955a11aed5ef "pdflatex"
+  "report.aux" 1703850253 4731 a93cfe4338bda056fe121c7b8ea84e07 "pdflatex"
+  "report.out" 1703850253 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
+  "report.tex" 1703850247 59602 f210ffa3b9fa8530913600f30b6ac438 ""
+  "report.toc" 1703850253 2732 26c6e814bebd7e9eb53712746d4dd6aa "pdflatex"
   (generated)
   "report.aux"
   "report.log"

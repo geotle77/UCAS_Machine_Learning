@@ -40,9 +40,9 @@
     \large
     \begin{tabular}{l}
         {姓名：马迪峰}
-        {学号：}\\
+        {学号：2021K8009929033}\\
         {姓名：盛子轩}
-        {学号：}\\
+        {学号：2021K8009929038}\\
         {姓名：贾城昊}
         {学号：2021K8009929010}\\
         {姓名：李金明}
@@ -579,22 +579,46 @@
                 首先将输入通过线性变换层后通过 Sigmoid 激活函数计算门控值 $z$。然后将将输入与门控值 $z$ 相乘，
                 得到通过门控后的表示。接着，我们将与该模态有关的transformer的输出直接串联，
                 最后通过一个全连通层后，得到该模态的最终输出。
-                
+                \begin{align}
+                    g_{n\rightarrow m} = \sigma(\textbf{W}_{n\rightarrow m}\cdot \textbf{H}_{n\rightarrow m})\\
+                    \textbf{H}_{n\rightarrow m}' = \textbf{H}_{n\rightarrow m} \otimes g_{n\rightarrow m}
+                \end{align}
+                其中，$\textbf{W}_{n\rightarrow m} \in \mathbb{R}^{d\times d}$是权重矩阵，$\sigma$是sigmoid函数，
+                $\otimes$是逐元素乘法符号，$g_{n\rightarrow m}$代表门控。
+
                 我们还设计了一种门控机制，使用softmax函数动态学习每个模态输出的权重。然后将权重与模态输出相乘，
-                得到最终的综合了三个模态的输出。
+                \begin{align}
+                    [g_{t_i};g_{a_i};g_{v_i}] =& \textrm{softmax}([\textbf{W}\cdot \textbf{h}_{ti}';\textbf{W}\cdot \textbf{h}_{ai}';\textbf{W}\cdot \textbf{h}_{vi}'])\\
+                    \textbf{h}_i'  =& \sum_{m \in{t, a, v}}\textbf{h}_{ti}\otimes \textbf{g}_{mi}
+                \end{align}
+                其中，$\textbf{W} \in \mathbb{R}^{d\times d}$是权重矩阵，$\textbf{g}_{ti},\textbf{g}_{ai}\textbf{g}_{vi}$为
+                三个模态对于会话$i$的学习权重。
+                
+                最终，得到了综合了三个模态的输出。
 
                 \item [6. ]\textbf{分类器}\par
                 在得到上面三个模态融合的输出后，我们将输出通过一个线性映射，降维到6维（分类的种类为6），
                 然后经过softmax层，得到每一个维度的概率。
+                \begin{align}
+                    \textbf{E}=&\textbf{W}_e\cdot \textbf{H}' + \textbf{b}_e \in \mathbb{R}^{N\times C}\\
+                    \hat{\textbf{Y}} =& \textrm{softmax}(\textbf{E}) 
+                \end{align}
                 
                 除此之外，我们还把每个模态的输出分别映射到6维，然后经过softmax层，用来计算每轮训练的loss。
-                
-                \item [7. ]\textbf{Loss计算}\par
-                我们分别对最终融合了三个模态的输出和每个模态的输出进行交叉熵损失计算，并进行加权相加
-                （这个权重需要自己定义，本次实验中均为1），得到最终的loss。
-                
-                Ljm to do: 添加公式
+                \begin{align}
+                    \textbf{E}_m=&\textbf{W}_{me}\cdot \textbf{H}_m' + \textbf{b}_{me} \in \mathbb{R}^{N\times C}\\
+                    \widehat{\textbf{Y}_m} =& \textrm{softmax}(\textbf{E}_m) 
+                \end{align}
+                其中，$m \in \{t, a, v\}$
 
+                \item [7. ]\textbf{Loss计算}\par
+                我们分别对最终融合了三个模态的输出和每个模态的输出进行交叉熵损失计算，并
+                进行加权相加（这个权重需要自己定义，本次实验中均为1），得到最终的loss。
+                \begin{align}
+                    &\mathcal{L}_1 = -\frac{1}{N}\sum_{i = 1}^{N}\sum_{j = 1}^{C}\textbf{y}_{i, j}\log(\hat{\textbf{y}_{i, j}})\\
+                    &\mathcal{L}_2 = -\frac{1}{N}\sum_{m \in {t,a,v}}\sum_{i = 1}^{N}\sum_{j = 1}^{C}\textbf{y}_{i, j}\log(\hat{\textbf{y}_{mi, j}})\\
+                    &\mathcal{L}=\gamma_1\mathcal{L}_1 + \gamma_2\mathcal{L}_2
+                \end{align}
                 
             \end{enumerate}
 
@@ -730,21 +754,25 @@
 
     \textbf{贾城昊：}完成Transformer\_Based模型的总设计与代码编写，预测结果的分析与绘制。参与了对\\LSTM的改良工作，使其能处理多个模态特征。
 
-    \textbf{李金明：}参与对LSTM的调试工作，完善机器学习汇报。
+    \textbf{李金明：}参与对LSTM的调试工作，完善LSTM和Transformer\_Based部分的汇报，汇总了机器学习汇报。
 
     \section{参考文献}
     \begin{enumerate}
         \item [1]\href{https://bbs.huaweicloud.com/blogs/264134?utm_source=zhihu&utm_medium=bbs-ex&utm_campaign=ei&utm_content=content}{多模态学习综述-云社区-华为云 (huaweicloud.com)}
-        \item [2]Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., \& Polosukhin, I. (2017). Attention Is All You Need. arXiv preprint arXiv:1706.03762.
-        \item [3]    Hu, G., Lin, T.-E., Zhao, Y., Lu, G., Wu, Y., \& Li, Y. (2022). "UniMSE: Towards Unified Multimodal Sentiment Analysis and Emotion Recognition." Accepted to EMNLP 2022 main conference. arXiv preprint arXiv:2211.11256.
+        \item [2]\href{https://pytorch.org/tutorials/}{pytorch官网}
+        \item [3]Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., \& Polosukhin, I. (2017). Attention Is All You Need. arXiv preprint arXiv:1706.03762.
+        \item [4]    Hu, G., Lin, T.-E., Zhao, Y., Lu, G., Wu, Y., \& Li, Y. (2022). "UniMSE: Towards Unified Multimodal Sentiment Analysis and Emotion Recognition." Accepted to EMNLP 2022 main conference. arXiv preprint arXiv:2211.11256.
 
-        \item [4]Patamia, R. A., Santos, P. E., Acheampong, K. N., Ekong, F., Sarpong, K., \& Kun, S. (2023). "Multimodal Speech Emotion Recognition Using Modality-specific Self-Supervised Frameworks." arXiv preprint arXiv:2312.01568.
+        \item [5]Patamia, R. A., Santos, P. E., Acheampong, K. N., Ekong, F., Sarpong, K., \& Kun, S. (2023). "Multimodal Speech Emotion Recognition Using Modality-specific Self-Supervised Frameworks." arXiv preprint arXiv:2312.01568.
 
-        \item [5]Ma, H., Wang, J., Lin, H., Zhang, B., Zhang, Y., \& Xu, B. (2023). "A Transformer-Based Model With Self-Distillation for Multimodal Emotion Recognition in Conversations." IEEE Transactions on Multimedia. doi:10.1109/TMM.2023.3271019.
+        \item [6]Ma, H., Wang, J., Lin, H., Zhang, B., Zhang, Y., \& Xu, B. (2023). "A Transformer-Based Model With Self-Distillation for Multimodal Emotion Recognition in Conversations." IEEE Transactions on Multimedia. doi:10.1109/TMM.2023.3271019.
 
-        \item [6]Ahn, C.-S., Rajapakse, J. C., \& Rana, R. (2023). "Integrating Contrastive Learning into a Multitask Transformer Model for Effective Domain Adaptation." arXiv preprint arXiv:2310.04703.
+        \item [7]Ahn, C.-S., Rajapakse, J. C., \& Rana, R. (2023). "Integrating Contrastive Learning into a Multitask Transformer Model for Effective Domain Adaptation." arXiv preprint arXiv:2310.04703.
 
-        \item [7]Deep Learning []Ian Goodfellow , Yoshua Bengio,Aaron Courville.
+        \item [8]Ian Goodfellow , Yoshua Bengio,Aaron Courville[M]Deep Learning 
+        \item [9]周志华，机器学习，清华大学出版社，2016
+        \item [10]李航，统计学习方法，清华大学出版社，2012
+        \item [11]Scikit-learn，scikit-learn: machine learning in Python — scikit-learn 1.1.3 documentation
 
     \end{enumerate}
     
