@@ -7,10 +7,28 @@ import torch.nn.functional as F
 import numpy as np
 from sklearn.metrics import f1_score
 
+def init_weights(m):
+    if type(m) == nn.Linear or type(m) == nn.Conv1d:
+        if isinstance(m, nn.ReLU):
+            torch.nn.init.kaiming_uniform_(m.weight, nonlinearity='relu')
+        elif isinstance(m, (nn.Sigmoid, nn.Tanh)):
+            torch.nn.init.xavier_uniform_(m.weight)
+        if m.bias is not None:
+            m.bias.data.fill_(0.01)
+    elif type(m) == nn.LSTM or type(m) == nn.GRU:
+        for name, param in m.named_parameters():
+            if 'weight_ih' in name:
+                torch.nn.init.xavier_uniform_(param.data)
+            elif 'weight_hh' in name:
+                torch.nn.init.orthogonal_(param.data)
+            elif 'bias' in name:
+                param.data.fill_(0)
+
 class MultiModalModel(object):
     def __init__(self, path):
         super().__init__()
-        self.model = LSTMModel(1024, 342, 1582, 256, 2, 6)
+        self.model = LSTMModel(1024, 342, 1582, 1024, 2, 6)
+        self.model.apply(init_weights)
         data=DataLoader(path)
         data.load_train_data()
         data.load_train_label()
@@ -107,7 +125,7 @@ class MultiModalModel(object):
         predictions = torch.argmax(outputs, dim=-1)
         masked_predictions = predictions[mask_reduced]
         Y_predict = masked_predictions.cpu().numpy()
-        Y_true = np.loadtxt('./reference_answer.csv', dtype = int)
+        Y_true = np.loadtxt('F:/CODES/Python/UCAS-Machine-Learning/test_pred.csv', dtype = int)
         weighted_f1 = f1_score(Y_true, Y_predict, average='weighted')
         accuary = np.mean(Y_true == Y_predict)
         print('accuary:',accuary)
@@ -117,7 +135,7 @@ class MultiModalModel(object):
             
 
 if __name__ == '__main__':
-    model=MultiModalModel('./LSTM/data')
+    model=MultiModalModel('F:/CODES/Python/UCAS-Machine-Learning/UCAS-Machine-Learning/data')
     model.train()
     model.evalaute()
 
