@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1703927904 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1703927908
+["pdflatex"] 1703928348 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1703928353
   "c:/Windows/Fonts/msyh.ttc" 1702111396 19701556 07c864a5b15e68fa47639738197fae38 ""
   "c:/Windows/Fonts/simhei.ttf" 1689343860 9753388 6abc0fcfbaa40600f9cecca3afeb3aa7 ""
   "c:/Windows/Fonts/simsun.ttc" 1702111397 18008680 490583a172d4371a68d1e0526a6bca81 ""
@@ -286,7 +286,7 @@
   "c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1657696389 4375701 2304959b07afa8464e69942b00d33bf1 ""
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1657696497 1886465 e65dad9455e1112e0c68b8184fde8cb3 ""
   "c:/texlive/2022/texmf.cnf" 1657696365 713 e69b156964470283e0530f5060668171 ""
-  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1703927892 59712 cd59c298b2e48b79504ac57ed972b6e9 ""
+  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1703928348 59839 cf2700386115db4b2ba72ba81467c1a9 ""
   "graph/lstm1.png" 1703779022 25390 4b5ebcae810616fe77584f4e3bb3e6dd ""
   "graph/lstm2.png" 1703779210 132047 c5f6923b4956d1917d61f6edba4e535f ""
   "graph/lstm3.png" 1703779227 175721 5c627afa7fc85769f6d5ca9691973a00 ""
@@ -305,10 +305,10 @@
   "graph/transformer2.png" 1703781127 47024 8ded6705f25660c6a27eb7d49061d116 ""
   "graph/transformer3.png" 1703780445 119262 6f99d7764f4b730c2f5a3d6160884871 ""
   "graph/transformer4.png" 1703780469 173525 7dbc41ea7577c69e8def1840343afa29 ""
-  "report.aux" 1703927907 4731 a93cfe4338bda056fe121c7b8ea84e07 "pdflatex"
-  "report.out" 1703927907 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
-  "report.tex" 1703927892 59712 cd59c298b2e48b79504ac57ed972b6e9 ""
-  "report.toc" 1703927907 2732 26c6e814bebd7e9eb53712746d4dd6aa "pdflatex"
+  "report.aux" 1703928352 4731 a93cfe4338bda056fe121c7b8ea84e07 "pdflatex"
+  "report.out" 1703928352 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
+  "report.tex" 1703928348 59839 cf2700386115db4b2ba72ba81467c1a9 ""
+  "report.toc" 1703928352 2732 26c6e814bebd7e9eb53712746d4dd6aa "pdflatex"
   (generated)
   "report.aux"
   "report.log"
