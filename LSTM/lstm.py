@@ -36,21 +36,16 @@ class LSTMModel(nn.Module):
         self.text_cov = nn.Conv1d(input_size1, hidden_size, kernel_size=1, padding=0, bias=False)
         self.visual_cov = nn.Conv1d(input_size2, hidden_size, kernel_size=1, padding=0, bias=False)
         self.audio_cov = nn.Conv1d(input_size3, hidden_size, kernel_size=1, padding=0, bias=False)
-        #self.line = nn.Linear(input_size, hidden_size)
-        self.text_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True)
-        self.visual_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True)
-        self.audio_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True)
-        self.text_fc1 = nn.Linear(hidden_size, hidden_size)
-        #self.text_relu = nn.ReLU()
-        self.visual_fc1 = nn.Linear(hidden_size, hidden_size)
-        #self.visual_relu = nn.ReLU()
-        self.audio_fc1 = nn.Linear(hidden_size, hidden_size)
-        #self.audio_relu = nn.ReLU()
-        self.text_dropout = nn.Dropout(0.1)  # 新增的dropout层
-        self.visual_dropout = nn.Dropout(0.1)  # 新增的dropout层
-        self.audio_dropout = nn.Dropout(0.1)  # 新增的dropout层
-        #self.fc2 = nn.Linear(3*hidden_size, hidden_size)  # 新增的全连接层
-        self.fc3 = nn.Linear(hidden_size, num_classes)  # 原来的输出层现在变成了第三个全连接层
+        self.text_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True, bidirectional=True)
+        self.visual_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True, bidirectional=True)
+        self.audio_lstm = nn.LSTM(hidden_size, hidden_size, num_layers, batch_first=True, bidirectional=True)
+        self.text_fc1 = nn.Linear(hidden_size*2, hidden_size)  # 注意这里的输入维度变为了2倍的hidden_size
+        self.visual_fc1 = nn.Linear(hidden_size*2, hidden_size)  # 注意这里的输入维度变为了2倍的hidden_size
+        self.audio_fc1 = nn.Linear(hidden_size*2, hidden_size)  # 注意这里的输入维度变为了2倍的hidden_size
+        self.text_dropout = nn.Dropout(0.1)
+        self.visual_dropout = nn.Dropout(0.1)
+        self.audio_dropout = nn.Dropout(0.1)
+        self.fc3 = nn.Linear(hidden_size, num_classes)
 
         self.last_gate = Multimodal_GatedFusion(hidden_size)
         self.text_gate = Unimodal_GatedFusion(hidden_size)
@@ -63,27 +58,20 @@ class LSTMModel(nn.Module):
         visual_out = self.visual_cov(visual.permute(1, 2, 0)).permute(2, 0, 1)
         audio_out = self.audio_cov(audio.permute(1, 2, 0)).permute(2, 0, 1)
 
-        #text_out = self.line(test)
         text_out, _ = self.text_lstm(text_out)
         text_out = self.text_fc1(text_out)
-        #text_out = self.text_relu(text_out)
         text_out = self.text_gate(text_out)
-        text_out = self.text_dropout(text_out)  # 在激活函数后使用dropout
+        # text_out = self.text_dropout(text_out)
 
         visual_out, _ = self.visual_lstm(visual_out)
         visual_out = self.visual_fc1(visual_out)
-        #visual_out = self.visual_relu(visual_out)
         visual_out = self.visual_gate(visual_out)
-        visual_out = self.visual_dropout(visual_out)  # 在激活函数后使用dropout
+        # visual_out = self.visual_dropout(visual_out)
 
         audio_out, _ = self.audio_lstm(audio_out)
         audio_out = self.audio_fc1(audio_out)
-        #audio_out = self.audio_relu(audio_out)
         audio_out = self.audio_gate(audio_out)
-        audio_out = self.audio_dropout(audio_out)  # 在激活函数后使用dropout
-
-        #muti_input = torch.cat([text_out, visual_out, audio_out], dim=2)
-        #muti_output = self.fc2(muti_input)
+        # audio_out = self.audio_dropout(audio_out)
 
         muti_output = self.last_gate(text_out, visual_out, audio_out)
 
