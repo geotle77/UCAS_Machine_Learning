@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.13)  29 DEC 2023 19:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.13)  31 DEC 2023 13:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -654,153 +654,172 @@ LaTeX Info: Redefining \nameref on input line 31.
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
-LaTeX Font Info:    Trying to load font information for C70+rm on input line 36.
- (c:/texlive/2022/texmf-dist/tex/latex/ctex/fd/c70rm.fd
-File: c70rm.fd 2021/12/12 v2.5.8 Chinese font definition (CTEX)
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
  (c:/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
  (c:/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package CJKpunct Info: use punctuation spaces for family 'rm' with punctstyle (quanjiao) on input line 42.
+LaTeX Font Info:    Trying to load font information for C70+rm on input line 43.
+ (c:/texlive/2022/texmf-dist/tex/latex/ctex/fd/c70rm.fd
+File: c70rm.fd 2021/12/12 v2.5.8 Chinese font definition (CTEX)
+)
+Package CJKpunct Info: use punctuation spaces for family 'rm' with punctstyle (quanjiao) on input line 52.
  (c:/texlive/2022/texmf-dist/tex/generic/ctex/zhmap/ctex-zhmap-windows.tex
 File: ctex-zhmap-windows.tex 2021/12/12 v2.5.8 Windows font map loader for pdfTeX and DVIPDFMx (CTEX)
 {c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{UGBK.sfd}{Unicode.sfd}) [1
 
-] (./report.toc)
-\tf@toc=\write4
-\openout4 = `report.toc'.
-
+]
+<graph/th.jpg, id=184, 376.40625pt x 376.40625pt>
+File: graph/th.jpg Graphic file (type jpg)
+<use graph/th.jpg>
+Package pdftex.def Info: graph/th.jpg  used on input line 66.
+(pdftex.def)             Requested size: 150.55983pt x 150.55983pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.57 \newpage
+l.82 \end{titlepage}
+                     [1 <./graph/th.jpg>] (./report.toc)
+\tf@toc=\write4
+\openout4 = `report.toc'.
+
+LaTeX Font Info:    Trying to load font information for C70+zhkai on input line 87.
+ (c:/texlive/2022/texmf-dist/tex/latex/zhmetrics/c70zhkai.fd
+File: c70zhkai.fd 2009/09/23 4.8.2
+)
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.87 \newpage
               [1] [2] [3]
-<graph/tradition1.png, id=364, 416.538pt x 156.366pt>
+<graph/tradition1.png, id=383, 416.538pt x 156.366pt>
 File: graph/tradition1.png Graphic file (type png)
 <use graph/tradition1.png>
-Package pdftex.def Info: graph/tradition1.png  used on input line 193.
+Package pdftex.def Info: graph/tradition1.png  used on input line 223.
 (pdftex.def)             Requested size: 458.1932pt x 172.00311pt.
  [4]
-<graph/tradition2.png, id=376, 416.8665pt x 274.626pt>
+<graph/tradition2.png, id=393, 416.8665pt x 274.626pt>
 File: graph/tradition2.png Graphic file (type png)
 <use graph/tradition2.png>
-Package pdftex.def Info: graph/tradition2.png  used on input line 200.
+Package pdftex.def Info: graph/tradition2.png  used on input line 230.
 (pdftex.def)             Requested size: 458.55457pt x 302.08952pt.
  [5 <./graph/tradition1.png> <./graph/tradition2.png>] [6]
-<graph/lstm1.png, id=394, 431.36156pt x 294.34969pt>
+<graph/lstm1.png, id=411, 431.36156pt x 294.34969pt>
 File: graph/lstm1.png Graphic file (type png)
 <use graph/lstm1.png>
-Package pdftex.def Info: graph/lstm1.png  used on input line 266.
+Package pdftex.def Info: graph/lstm1.png  used on input line 296.
 (pdftex.def)             Requested size: 301.95103pt x 206.04337pt.
  [7 <./graph/lstm1.png>]
-<graph/lstm2.png, id=408, 207.9405pt x 220.752pt>
+<graph/lstm2.png, id=425, 207.9405pt x 220.752pt>
 File: graph/lstm2.png Graphic file (type png)
 <use graph/lstm2.png>
-Package pdftex.def Info: graph/lstm2.png  used on input line 287.
+Package pdftex.def Info: graph/lstm2.png  used on input line 317.
 (pdftex.def)             Requested size: 207.93999pt x 220.75145pt.
-<graph/lstm3.png, id=409, 675.27281pt x 261.97874pt>
+<graph/lstm3.png, id=426, 675.27281pt x 261.97874pt>
 File: graph/lstm3.png Graphic file (type png)
 <use graph/lstm3.png>
-Package pdftex.def Info: graph/lstm3.png  used on input line 298.
+Package pdftex.def Info: graph/lstm3.png  used on input line 328.
 (pdftex.def)             Requested size: 405.16681pt x 157.18845pt.
  [8 <./graph/lstm2.png> <./graph/lstm3.png>] [9]
-<graph/lstm4.png, id=424, 442.15187pt x 329.73187pt>
+<graph/lstm4.png, id=440, 442.15187pt x 329.73187pt>
 File: graph/lstm4.png Graphic file (type png)
 <use graph/lstm4.png>
-Package pdftex.def Info: graph/lstm4.png  used on input line 367.
+Package pdftex.def Info: graph/lstm4.png  used on input line 397.
 (pdftex.def)             Requested size: 442.15079pt x 329.73105pt.
  [10 <./graph/lstm4.png>]
-<graph/transformer1.png, id=431, 120.95187pt x 154.07562pt>
+<graph/transformer5.png, id=447, 908.64468pt x 1091.57813pt>
+File: graph/transformer5.png Graphic file (type png)
+<use graph/transformer5.png>
+Package pdftex.def Info: graph/transformer5.png  used on input line 441.
+(pdftex.def)             Requested size: 454.32123pt x 545.78773pt.
+ [11]
+<graph/transformer1.png, id=454, 120.95187pt x 154.07562pt>
 File: graph/transformer1.png Graphic file (type png)
 <use graph/transformer1.png>
-Package pdftex.def Info: graph/transformer1.png  used on input line 416.
+Package pdftex.def Info: graph/transformer1.png  used on input line 448.
 (pdftex.def)             Requested size: 108.85567pt x 138.66676pt.
- [11 <./graph/transformer1.png>]
-<graph/transformer2.png, id=441, 368.87813pt x 206.7725pt>
+ [12 <./graph/transformer5.png>]
+<graph/transformer2.png, id=462, 368.87813pt x 206.7725pt>
 File: graph/transformer2.png Graphic file (type png)
 <use graph/transformer2.png>
-Package pdftex.def Info: graph/transformer2.png  used on input line 432.
+Package pdftex.def Info: graph/transformer2.png  used on input line 464.
 (pdftex.def)             Requested size: 331.98723pt x 186.09352pt.
- [12 <./graph/transformer2.png>] [13] [14] [15]
-<graph/transformer3.png, id=483, 487.8225pt x 408.02437pt>
+ [13 <./graph/transformer1.png> <./graph/transformer2.png>] [14] [15] [16] [17]
+<graph/transformer3.png, id=515, 487.8225pt x 408.02437pt>
 File: graph/transformer3.png Graphic file (type png)
 <use graph/transformer3.png>
-Package pdftex.def Info: graph/transformer3.png  used on input line 644.
+Package pdftex.def Info: graph/transformer3.png  used on input line 676.
 (pdftex.def)             Requested size: 390.25853pt x 326.41994pt.
- [16]
-<graph/transformer4.png, id=495, 483.30562pt x 407.02063pt>
+<graph/transformer4.png, id=516, 483.30562pt x 407.02063pt>
 File: graph/transformer4.png Graphic file (type png)
 <use graph/transformer4.png>
-Package pdftex.def Info: graph/transformer4.png  used on input line 645.
+Package pdftex.def Info: graph/transformer4.png  used on input line 677.
 (pdftex.def)             Requested size: 386.64502pt x 325.61693pt.
- [17 <./graph/transformer3.png> <./graph/transformer4.png>]
-<graph/result1.png, id=502, 307.52391pt x 190.08516pt>
+ [18 <./graph/transformer3.png>]
+<graph/result1.png, id=522, 307.52391pt x 190.08516pt>
 File: graph/result1.png Graphic file (type png)
 <use graph/result1.png>
-Package pdftex.def Info: graph/result1.png  used on input line 656.
+Package pdftex.def Info: graph/result1.png  used on input line 688.
 (pdftex.def)             Requested size: 307.52315pt x 190.08469pt.
-<graph/result2.png, id=503, 336.13078pt x 193.47281pt>
+ [19 <./graph/transformer4.png> <./graph/result1.png>]
+<graph/result2.png, id=531, 336.13078pt x 193.47281pt>
 File: graph/result2.png Graphic file (type png)
 <use graph/result2.png>
-Package pdftex.def Info: graph/result2.png  used on input line 660.
+Package pdftex.def Info: graph/result2.png  used on input line 692.
 (pdftex.def)             Requested size: 336.12994pt x 193.47234pt.
-<graph/result3.png, id=504, 366.9961pt x 219.82124pt>
+<graph/result3.png, id=532, 366.9961pt x 219.82124pt>
 File: graph/result3.png Graphic file (type png)
 <use graph/result3.png>
-Package pdftex.def Info: graph/result3.png  used on input line 664.
+Package pdftex.def Info: graph/result3.png  used on input line 696.
 (pdftex.def)             Requested size: 366.99518pt x 219.8207pt.
- [18 <./graph/result1.png> <./graph/result2.png>]
-<graph/result4.png, id=513, 902.87312pt x 478.78876pt>
+ [20 <./graph/result2.png> <./graph/result3.png>]
+<graph/result4.png, id=539, 902.87312pt x 478.78876pt>
 File: graph/result4.png Graphic file (type png)
 <use graph/result4.png>
-Package pdftex.def Info: graph/result4.png  used on input line 693.
+Package pdftex.def Info: graph/result4.png  used on input line 725.
 (pdftex.def)             Requested size: 451.43546pt x 239.39378pt.
- [19 <./graph/result3.png>]
-<graph/result5.jpg, id=520, 434.12187pt x 272.01625pt>
+ [21 <./graph/result4.png>]
+<graph/result5.jpg, id=545, 434.12187pt x 272.01625pt>
 File: graph/result5.jpg Graphic file (type jpg)
 <use graph/result5.jpg>
-Package pdftex.def Info: graph/result5.jpg  used on input line 718.
+Package pdftex.def Info: graph/result5.jpg  used on input line 750.
 (pdftex.def)             Requested size: 434.1208pt x 272.01558pt.
- [20 <./graph/result4.png>]
-<graph/result5.png, id=526, 318.18875pt x 248.93pt>
+<graph/result5.png, id=546, 318.18875pt x 248.93pt>
 File: graph/result5.png Graphic file (type png)
 <use graph/result5.png>
-Package pdftex.def Info: graph/result5.png  used on input line 726.
+Package pdftex.def Info: graph/result5.png  used on input line 758.
 (pdftex.def)             Requested size: 318.18796pt x 248.92938pt.
-<graph/result6.png, id=527, 308.65312pt x 246.9225pt>
+<graph/result6.png, id=547, 308.65312pt x 246.9225pt>
 File: graph/result6.png Graphic file (type png)
 <use graph/result6.png>
-Package pdftex.def Info: graph/result6.png  used on input line 727.
+Package pdftex.def Info: graph/result6.png  used on input line 759.
 (pdftex.def)             Requested size: 277.78523pt x 222.22818pt.
- [21 <./graph/result5.jpg> <./graph/result5.png>]
-<graph/result7.png, id=533, 490.83376pt x 230.36063pt>
+ [22 <./graph/result5.jpg> <./graph/result5.png>]
+<graph/result7.png, id=553, 490.83376pt x 230.36063pt>
 File: graph/result7.png Graphic file (type png)
 <use graph/result7.png>
-Package pdftex.def Info: graph/result7.png  used on input line 741.
+Package pdftex.def Info: graph/result7.png  used on input line 773.
 (pdftex.def)             Requested size: 441.74629pt x 207.32263pt.
- [22 <./graph/result6.png> <./graph/result7.png>] [23] (./report.aux)
+ [23 <./graph/result6.png> <./graph/result7.png>] [24] (./report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: B67CF78BB7D87821D89E20A338673F27;3410.
  ) 
 Here is how much of TeX's memory you used:
- 18714 strings out of 480135
- 297298 string characters out of 5891864
+ 18902 strings out of 480135
+ 300620 string characters out of 5891864
  581919 words of memory out of 5000000
- 35940 multiletter control sequences out of 15000+600000
- 537249 words of font info for 275 fonts, out of 8000000 for 9000
+ 36081 multiletter control sequences out of 15000+600000
+ 555005 words of font info for 341 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,78p,827b,500s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (24 pages, 2358784 bytes).
+ 75i,12n,78p,827b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simkai.ttf>{c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simsun.ttc><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/Windows/Fonts/simhei.ttf><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on report.pdf (26 pages, 2620456 bytes).
 PDF statistics:
- 1034 PDF objects out of 1200 (max. 8388607)
- 724 compressed objects within 8 object streams
- 75 named destinations out of 1000 (max. 500000)
- 667 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1086 PDF objects out of 1200 (max. 8388607)
+ 761 compressed objects within 8 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 677 words of extra memory for PDF output out of 10000 (max. 10000000)
 

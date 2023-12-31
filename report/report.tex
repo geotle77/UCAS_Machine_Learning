@@ -29,29 +29,59 @@
 \newcommand\E{\mathbb{E}}
 
 \begin{document}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\lhead{\kaishu 中国科学院大学}
+\chead{}
+\rhead{\kaishu 2023年秋季学期\space ·\space 机器学习导论}
 
 \begin{titlepage}
     \vspace*{\stretch{1}}
     \centering
-    \Huge\bfseries 机器学习汇报\\
-    \huge 多模态会话情感分析\\
+    \Huge\bfseries 
+    \begin{tabular}{c}
+        2023年秋季学期\\
+        机器学习导论课程汇报\\
+        \\
+        \huge 多模态会话情感分析\\
+    \end{tabular}\\
     \mdseries
     \vspace*{\stretch{2}}
-    \large
-    \begin{tabular}{l}
+    \LARGE
+    \begin{tabular}{c}
+        {\bf 组名：}
+        {机器不学习}\\
+        \\
+    \end{tabular}
+    \\
+    \Large
+    \today
+\end{titlepage}
+
+\newpage
+
+\begin{titlepage}
+    \centering
+    \vspace*{\stretch{1}}
+    \includegraphics[scale = 0.4]{graph/th.jpg}\\
+    \vspace*{\stretch{2}}
+    \Large
+    \begin{tabular}{c}
+        {\LARGE\bf 小组成员}\\
+        {姓名：李金明}
+        {学号：2021K8009929016}\\
         {姓名：马迪峰}
         {学号：2021K8009929033}\\
         {姓名：盛子轩}
         {学号：2021K8009929038}\\
         {姓名：贾城昊}
         {学号：2021K8009929010}\\
-        {姓名：李金明}
-        {学号：2021K8009929016}\\
         {姓名：牛浩宇}
         {学号：2021K8009929007}\\
-    \end{tabular}
+    \end{tabular}\\
 \end{titlepage}
 
+\newpage
 \tableofcontents
 
 \newpage
@@ -407,7 +437,9 @@
             
             总体设计图如下：
             
-            Ljm to do:画图
+            \begin{center}
+                \includegraphics[scale = 0.5]{graph/transformer5.png}
+            \end{center}
             
             \subsubsection{Transformer编码器层简介}
             Transformer 模型的编码器层是该模型的关键组件之一，它负责处理输入序列的信息并生成表\\示。
@@ -755,6 +787,8 @@
     \textbf{贾城昊：}完成Transformer\_Based模型的总设计与代码编写，预测结果的分析与绘制。对\\LSTM进行改良，添加残差并使其能处理多个模态特征。撰写Transformer\_Based部分的汇报。
 
     \textbf{李金明：}参与对LSTM的调试工作，完善LSTM和Transformer\_Based部分的汇报，汇总了机器学习汇报。
+
+    \textbf{牛浩宇：}完成汇报PPT的制作。
 
     \section{参考文献}
     \begin{enumerate}
