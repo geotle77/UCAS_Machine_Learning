@@ -1261,6 +1261,11 @@ INPUT graph/lstm4.png
 INPUT ./graph/lstm4.png
 INPUT ./graph/lstm4.png
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/zhmetrics/unisong/unisong92.tfm
+INPUT ./graph/transformer5.png
+INPUT ./graph/transformer5.png
+INPUT graph/transformer5.png
+INPUT ./graph/transformer5.png
+INPUT ./graph/transformer5.png
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/zhmetrics/unihei/unihei7f.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/zhmetrics/unihei/unihei78.tfm
 INPUT c:/texlive/2022/texmf-dist/fonts/tfm/zhmetrics/unihei/unihei56.tfm

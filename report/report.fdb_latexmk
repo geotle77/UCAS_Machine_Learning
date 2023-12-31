@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1703934690 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1703934694
+["pdflatex"] 1704000158 "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" "report.pdf" "report" 1704000163
   "c:/Windows/Fonts/msyh.ttc" 1702111396 19701556 07c864a5b15e68fa47639738197fae38 ""
   "c:/Windows/Fonts/simhei.ttf" 1689343860 9753388 6abc0fcfbaa40600f9cecca3afeb3aa7 ""
   "c:/Windows/Fonts/simkai.ttf" 1689343860 11787328 76179557c160634a761c845ea111c893 ""
@@ -301,7 +301,7 @@
   "c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1657696389 4375701 2304959b07afa8464e69942b00d33bf1 ""
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1657696497 1886465 e65dad9455e1112e0c68b8184fde8cb3 ""
   "c:/texlive/2022/texmf.cnf" 1657696365 713 e69b156964470283e0530f5060668171 ""
-  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1703934689 60324 6ebd05ef6cc172e3a6fce666b9877de2 ""
+  "e:/2023秋季学期/2023-Autumn/机器学习导论/UCAS-Machine-Learning/report/report.tex" 1704000157 60419 55c45228aa3441d8ab8a04750b69c137 ""
   "graph/lstm1.png" 1703779022 25390 4b5ebcae810616fe77584f4e3bb3e6dd ""
   "graph/lstm2.png" 1703779210 132047 c5f6923b4956d1917d61f6edba4e535f ""
   "graph/lstm3.png" 1703779227 175721 5c627afa7fc85769f6d5ca9691973a00 ""
@@ -321,10 +321,11 @@
   "graph/transformer2.png" 1703781127 47024 8ded6705f25660c6a27eb7d49061d116 ""
   "graph/transformer3.png" 1703780445 119262 6f99d7764f4b730c2f5a3d6160884871 ""
   "graph/transformer4.png" 1703780469 173525 7dbc41ea7577c69e8def1840343afa29 ""
-  "report.aux" 1703934693 4731 652720ddc3fab88800a175536bb83608 "pdflatex"
-  "report.out" 1703934693 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
-  "report.tex" 1703934689 60324 6ebd05ef6cc172e3a6fce666b9877de2 ""
-  "report.toc" 1703934693 2732 26c6e814bebd7e9eb53712746d4dd6aa "pdflatex"
+  "graph/transformer5.png" 1703999958 243136 ee9a8ebfcd33a34eca6dac938525bd08 ""
+  "report.aux" 1704000162 4731 c8dc602db75252b251a56d0dac06cb2f "pdflatex"
+  "report.out" 1704000162 3410 b67cf78bb7d87821d89e20a338673f27 "pdflatex"
+  "report.tex" 1704000157 60419 55c45228aa3441d8ab8a04750b69c137 ""
+  "report.toc" 1704000162 2732 0ea3f34df69922889c73e0fd4210549b "pdflatex"
   (generated)
   "report.aux"
   "report.log"
