@@ -50,6 +50,30 @@ def show_f1_scores(file_path):
     # 显示图形
     plt.show()
 
+def show_loss(file_path):
+    x, y = [], []
+    with open(file_path, 'r') as csvfile:
+        csvreader = csv.reader(csvfile)
+        next(csvreader)  # 跳过表头
+        for row in csvreader:
+            x.append(float(row[0]))  # 第一列作为x轴
+            y.append(float(row[1]))  # 第二列作为y轴的变量
+
+    # 绘制坐标图
+    plt.plot(x, y, label='Loss')
+
+    # 设置图形标题和坐标轴标签
+    plt.title("Train Loss changes with Epoch")
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+
+    # 添加图例
+    plt.legend()
+
+    # 显示图形
+    plt.show()
+
 if __name__ == '__main__':
     show_acc('Acc.csv')
     show_f1_scores('F1_Scores.csv')
+    show_loss('Loss.csv')

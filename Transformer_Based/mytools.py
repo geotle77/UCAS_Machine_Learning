@@ -39,3 +39,16 @@ def record_f1_scores(f1_s_lst, file_path):
         # 通过enumerate遍历列表，将索引和元素写入CSV文件
         for index, element in enumerate(f1_s_lst):
             csvwriter.writerow([index, element])
+
+
+def record_loss(f1_s_lst, file_path):
+    with open(file_path, 'w', newline='') as csvfile:
+        # 创建一个CSV写入器
+        csvwriter = csv.writer(csvfile)
+
+        # 写入表头，这里包括两列：索引列和元素列
+        csvwriter.writerow(['Epoch', 'Loss'])
+
+        # 通过enumerate遍历列表，将索引和元素写入CSV文件
+        for index, element in enumerate(f1_s_lst):
+            csvwriter.writerow([index, element])

@@ -9,7 +9,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 from dataloader import IEMOCAPDataset
 from model import MaskedNLLLoss, Transformer_Based_Model
 from sklearn.metrics import f1_score, accuracy_score
-from mytools import get_test_accuracy, record_acc, record_f1_scores
+from mytools import get_test_accuracy, record_acc, record_f1_scores, record_loss
 import csv
 
 final_labels = ["test_pred"]
@@ -127,7 +127,7 @@ def reserve_in_csv(model, dataloader, reserve):
 
         # 打开 CSV 文件进行写入
         #print(len(csv_labels))
-        accuracy, fscore = get_test_accuracy(csv_labels, ".Csv/reference.csv")
+        accuracy, fscore = get_test_accuracy(csv_labels, "./reference.csv")
         if accuracy > max_accuracy:
             max_accuracy = accuracy
             final_labels = csv_labels.copy()
@@ -135,7 +135,7 @@ def reserve_in_csv(model, dataloader, reserve):
     else:
         final_labels.insert(0, "test_pred")
         print(len(final_labels))
-        with open('.Csv/submission.csv', 'w', newline='') as file:
+        with open('./submission.csv', 'w', newline='') as file:
             # 创建 CSV 写入器对象
             writer = csv.writer(file)
 
@@ -151,21 +151,20 @@ if __name__ == '__main__':
     else:
         print('Running on CPU')
 
+    #超参数
     epochs = 750
     batch_size = 8
     hidden_dim = 1024
     dropout = 0.5
 
-    
     n_head = 8
     lr = 0.00001
     l2 = 0.000001
 
+    #维度
     D_audio = 1582
     D_visual = 342
     D_text = 1024
-
-    D_m = D_audio + D_visual + D_text
 
     n_speakers = 2
     n_classes =  6
@@ -181,13 +180,9 @@ if __name__ == '__main__':
     optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=l2)
 
 
-    loss_weights = torch.FloatTensor([1/0.086747,
-                                    1/0.144406,
-                                    1/0.227883,
-                                    1/0.160585,
-                                    1/0.127711,
-                                    1/0.252668])
+    loss_weights = torch.FloatTensor([1/0.086747, 1/0.144406, 1/0.227883, 1/0.160585, 1/0.127711, 1/0.252668])
     loss_function = MaskedNLLLoss(loss_weights.cuda() if cuda_availdabe else loss_weights)
+
     train_loader, valid_loader, test_loader = get_IEMOCAP_loaders(valid=0.0,
                                                                   batch_size=batch_size,
                                                                   num_workers=0)
@@ -211,6 +206,7 @@ if __name__ == '__main__':
         print('epoch: {}, train_loss: {}, train_acc: {}, train_fscore: {}, valid_loss: {}, valid_acc: {}, valid_fscore: {}, test_loss: {}, test_acc: {}, test_fscore: {}, time: {} sec'.\
                 format(e+1, train_loss, train_acc, train_fscore, valid_loss, valid_acc, valid_fscore, test_loss, accuracy, fscore, round(time.time()-start_time, 2)))
         all_fscore.append(fscore)
+        all_loss.append(train_loss)
         all_test_acc.append(accuracy)
         all_train_acc.append(train_acc)
 
@@ -222,8 +218,9 @@ if __name__ == '__main__':
     print('F-Score: {}'.format(max(all_fscore)))
     print('F-Score-index: {}'.format(all_fscore.index(max(all_fscore)) + 1))
 
-    record_acc(all_train_acc, all_test_acc, '.Csv/Acc.csv')
-    record_f1_scores(all_fscore, '.Csv/F1_Scores.csv')
+    record_acc(all_train_acc, all_test_acc, './Acc.csv')
+    record_f1_scores(all_fscore, './F1_Scores.csv')
+    record_loss(all_loss, './Loss.csv')
 
 
 
