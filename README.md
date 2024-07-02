@@ -1,2 +1,2 @@
 # 2023 UCAS 机器学习大作业
-参加的CCF情感会话分析的比赛，在比赛队伍中获得了最高的正确率，一共尝试了3种方法：决策树，LSTM和基于transformer的模型，最终基于transformer的模型的效果遥遥领先，具体内容可参考我们的报告
+本次大作业选择的是[多模态会话情感识别](https://www.datafountain.cn/competitions/981)任务，采用了三种方法实现，分别是LSTM，决策树和Transformer。实现方法请参考实验报告。
